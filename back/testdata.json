@@ -1,0 +1,30 @@
+{
+  "date": "321654987",
+  "bets": [
+    {
+      "sport_id": "06a99750-c63e-4278-8a0b-699fc7bd3d63",
+      "league_id": "eee1ec6d-873a-41b9-a1fb-b6d6cd23fdf7",
+      "selection_team_id": "e8fefcbc-007c-4971-8d77-19b0fc181d0d",
+      "bet_type_id": "e8fefcbc-007c-4971-8d77-19b0fc181d0d",
+      "home_team_id": "7c475aaf-cd3c-4edd-abe4-a979cf930615",
+      "away_team_id": "a1546bd4-1ae1-4e10-bff8-afb6f5869fc6",
+      "live": true,
+      "odds": 2,
+      "bet_result": "P"
+    },
+    {
+      "sport_id": "06a99750-c63e-4278-8a0b-699fc7bd3d63",
+      "league_id": "eee1ec6d-873a-41b9-a1fb-b6d6cd23fdf7",
+      "selection_team_id": "7c475aaf-cd3c-4edd-abe4-a979cf930615",
+      "bet_type_id": "e8fefcbc-007c-4971-8d77-19b0fc181d0d",
+      "home_team_id": "7c475aaf-cd3c-4edd-abe4-a979cf930615",
+      "away_team_id": "a04f013c-d506-4585-b50e-02f61dea24dc",
+      "live": true,
+      "odds": 2,
+      "bet_result": "P"
+    }
+  ],
+  "tipper": "hatle",
+  "stake": 100,
+  "odds": 1.5
+}
