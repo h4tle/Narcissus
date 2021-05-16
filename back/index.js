@@ -1,29 +1,6 @@
-//require the Elasticsearch librray
-const elasticsearch = require('elasticsearch');
-// instantiate an Elasticsearch client
-const client = new elasticsearch.Client({
-   hosts: [ 'http://20.82.178.74:9200']
-});
-
-client.ping({
-    requestTimeout: 30000,
-}, function(error) {
-// at this point, eastic search is down, please check your Elasticsearch service
-    if (error) {
-        console.error('Elasticsearch cluster is down!');
-    } else {
-        console.log('Everything is ok');
-    }
-});
-
-// -> Hvor mange index?
-client.indices.create({
-    // Index name
-    index: 'narcissus_odds'
-}, function(error, response, status) {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log("created a new index", response);
-    }
-});
+//Set up mongoose connection
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb+srv://mongo:changeme@cluster0.sgyvv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
