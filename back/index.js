@@ -1,8 +1,17 @@
 const express = require("express");
 const cors = require("cors");
-// const akkumulator = require("./models/akkumulator");
+const akkumulator = require("./models/akkumulator");
 const Bet = require("./models/bet");
 const League = require("./models/league");
+const Bet_Type = require("./models/bet_type");
+const Tipper = require("./models/tipper");
+const Team = require("./models/team");
+const Sport = require("./models/sport");
+
+
+
+
+
 const mongoose = require("mongoose");
 var mongoDB =
   "mongodb+srv://mongo:changeme@cluster0.sgyvv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
@@ -14,14 +23,35 @@ mongoose
     app.use(express.json());
     app.use(cors());
     app.post("/", async (request, response) => {
-      const data = request.body;
-      const bets = data.bets;
+      let akkumulator_data = request.body;
+      const bets = akkumulator_data.bets;
+      
+      let newBets = [];
+      // let akkumulatorOdds;
+    //let aodds
 
-      bets.map(async (item) => {
-        const currentbet = new Bet(item);
-        await currentbet.save();
-      });
-      response.send();
+// læs om promise -> then
+      Promise.all(
+        bets.map(async (item) => {
+          return new Promise((resolve, reject) => {
+            const currentbet = new Bet(item);
+            //aodds = aodds * items.odds
+            // akkumulatorOdds = akkumulatorOdds * item.bets.odds;
+            // console.log(akkumulatorOdds)
+            currentbet.save().then((res) => {
+              newBets.push(res._id);
+              resolve();
+            }).catch(err => reject(err));
+          })
+        })
+      ).then(() => {
+        akkumulator_data.bets = newBets;
+        // akkumulator_data.odds = akkumulatorOdds;
+        // akkumulator_data.odds = aodds
+        console.log(akkumulator_data)
+        console.log(akkumulator_data.odds)
+        response.send();
+      }).catch(err => console.log("fejl: " + err))
     });
 
     app.get("/leagues", async (request, response) => {

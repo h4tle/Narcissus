@@ -1,27 +1,30 @@
 const mongoose = require("mongoose");
 
+var Schema = mongoose.Schema;
+
 var BetSchema = new mongoose.Schema({
   sport_id: {
     type: String,
     required: true,
   },
   league_id: {
-    type: String,
+    type: Schema.Types.ObjectId, ref: "League",
     required: true,
   },
   selection_team_id: {
-    type: String,
+    type: Schema.Types.ObjectId, ref: "Team",
     required: true,
   },
   bet_type_id: {
-    type: String,
+    type: Schema.Types.ObjectId, ref: "Bet_Type",
+    required: true,
   },
   home_team_id: {
-    type: String,
+    type: Schema.Types.ObjectId, ref: "Team",
     required: true,
   },
   away_team_id: {
-    type: String,
+    type: Schema.Types.ObjectId, ref: "Team",
     required: true,
   },
   live: {

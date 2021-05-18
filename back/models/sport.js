@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var SportSchema = new Schema(
   {
-    sport_type: {type: String, required: true, maxLength: 100},
+    type: {type: String, required: true, maxLength: 100},
   }
 );
 

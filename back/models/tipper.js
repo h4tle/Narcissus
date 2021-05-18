@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var TipperSchema = new Schema(
     {
-      tipper_name: {type: String, required: true, maxLength: 100},
+      name: {type: String, required: true, maxLength: 100},
     }
   );
 

@@ -7,10 +7,4 @@ var LeagueSchema = new Schema({
   country: { type: String, required: true },
 });
 
-//   LeagueSchema
-//   .virtual('full_league_name')
-//   .get(function () {
-//       return this.league_country + " - " + this.league_name;
-//   })
-
 module.exports = mongoose.model("League", LeagueSchema);
