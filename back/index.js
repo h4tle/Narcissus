@@ -63,8 +63,6 @@ mongoose
       const tippers = await Tipper.find();
 
 
-      //const bets = await Bet.find();
-      // response.send({"data": ["leagues" = [leagues],"bet_types" = bet_types, "sports" = sports,"teams" = teams,"tippers" = tippers]});
       response.send({"data": {"sports": sports, "leagues": leagues, "bet_types" : bet_types, "teams" : teams, "tippers" : tippers }})
     });
 

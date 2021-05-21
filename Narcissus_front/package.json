@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.3.2",
+    "axios": "^0.21.1",
     "vite-svg-loader": "^1.5.1",
     "vue": "^3.0.5",
     "vue-router": "^4.0.8"
