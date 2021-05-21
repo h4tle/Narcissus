@@ -1,102 +1,97 @@
 <template>
   <div class="ml-32">
     Hello
-    <form>
-      <div>
-        <input type="date" name="date" id="" />
+    <div>
+      <input v-model="akkumulator.date" type="date" name="date" id="" />
 
-        <select v-model="akkumulator.tippers" name="league" id="">
+      <select v-model="akkumulator.tipper" name="league" id="">
+        <option
+          v-for="tipper in models.tippers"
+          :value="tipper._id"
+          :key="tipper._id"
+        >
+          {{ tipper.name }}
+        </option>
+      </select>
+
+      <input type="number" v-model="akkumulator.stake" name="date" id="" />
+
+      <br />
+
+      <div v-for="bet in bets" :key="bet.id">
+        <select v-model="bet.sport" name="sport" id="">
           <option
-            v-for="tipper in models.tippers"
-            :value="tipper._id"
-            :key="tipper._id"
+            v-for="sport in models.sports"
+            :value="sport._id"
+            :key="sport._id"
           >
-            {{ tipper.name }}
+            {{ sport.type }}
           </option>
         </select>
 
-        <input type="number" name="stake" id="" />
+        <select v-model="bet.league" name="league" id="">
+          <option
+            v-for="league in models.leagues"
+            :value="league._id"
+            :key="league._id"
+          >
+            {{ league.country }} - {{ league.name }}
+          </option>
+        </select>
 
-        <br />
+        <select v-model="bet.selection" name="selection" id="">
+          <option
+            v-for="team in models.teams"
+            :value="team._id"
+            :key="team._id"
+          >
+            {{ team.name }} - {{ team.country }}
+          </option>
+        </select>
 
-        <div v-for="bet in bets" :key="bet.id">
-          <select v-model="bet.sport" name="sport" id="">
-            <option
-              v-for="sport in models.sports"
-              :value="sport._id"
-              :key="sport._id"
-            >
-              {{ sport.type }}
-            </option>
-          </select>
+        <select v-model="bet.bettype" name="bettype" id="">
+          <option
+            v-for="bettype in models.bet_types"
+            :value="bettype._id"
+            :key="bettype._id"
+          >
+            {{ bettype.type }}
+          </option>
+        </select>
 
-          <select v-model="bet.league" name="league" id="">
-            <option
-              v-for="league in models.leagues"
-              :value="league._id"
-              :key="league._id"
-            >
-              {{ league.country }} - {{ league.name }}
-            </option>
-          </select>
+        <select v-model="bet.hometeam" name="hometeam" id="">
+          <option
+            v-for="team in models.teams"
+            :value="team._id"
+            :key="team._id"
+          >
+            {{ team.name }} - {{ team.country }}
+          </option>
+        </select>
 
-          <select v-model="bet.selection" name="selection" id="">
-            <option
-              v-for="team in models.teams"
-              :value="team._id"
-              :key="team._id"
-            >
-              {{ team.name }} - {{ team.country }}
-            </option>
-          </select>
+        <select v-model="bet.awayteam" name="awayteam" id="">
+          <option
+            v-for="team in models.teams"
+            :value="team._id"
+            :key="team._id"
+          >
+            {{ team.name }} - {{ team.country }}
+          </option>
+        </select>
 
-          <select v-model="bet.bettype" name="bettype" id="">
-            <option
-              v-for="bettype in models.bet_types"
-              :value="bettype._id"
-              :key="bettype._id"
-            >
-              {{ bettype.type }}
-            </option>
-          </select>
-
-          <select v-model="bet.hometeam" name="hometeam" id="">
-            <option
-              v-for="team in models.teams"
-              :value="team._id"
-              :key="team._id"
-            >
-              {{ team.name }} - {{ team.country }}
-            </option>
-          </select>
-
-          <select v-model="bet.awayteam" name="awayteam" id="">
-            <option
-              v-for="team in models.teams"
-              :value="team._id"
-              :key="team._id"
-            >
-              {{ team.name }} - {{ team.country }}
-            </option>
-          </select>
-
-          <input v-model="bet.odds" type="number" name="odds" id="" />
-        </div>
-        <button class="button" @click="addBet">Tilføj</button>
+        <input v-model="bet.odds" type="number" name="odds" id="" />
       </div>
+      <button class="button" @click="addBet">Tilføj</button>
+    </div>
 
-      <div>
-        <input type="submit" @click="addAkku" />
-      </div>
-    </form>
+    <div>
+      <button class="button" @click="addAkku">Opret</button>
+      <button class="button" @click="test">Opret</button>
+    </div>
   </div>
-
-  <!-- wrappe det hele i form med typen submit -->
 </template>
 
 <script>
-import axios from "../axios/index.js";
-
 export default {
   methods: {
     addBet() {
@@ -111,23 +106,29 @@ export default {
         odds: 1,
       });
     },
-  },
-  addAkku: async function () {
-    console.log(this.akkumulator);
-    // var akku = {
-    //   date: this.date,
-    //   tipper: this.tipper,
-    //   bets: this.bets,
-    //   stake: this.stake,
-    // };
-    console.log(akku);
-    await axios.post("/here", models.akkumulator);
+    addAkku() {
+      console.log(this.akkumulator);
+      console.log({});
+      fetch("http://localhost:5000/here", {
+        method: "POST",
+        body: JSON.stringify({
+          date: this.akkumulator.date,
+          bets: this.bets,
+          tipper: this.akkumulator.tipper,
+          stake: this.akkumulator.stake,
+        }),
+      });
+    },
+    test() {
+      console.log(JSON.stringify(this.bets));
+    },
   },
   data() {
     return {
       akkumulator: {
         date: "",
         tipper: "",
+        bets: null,
         stake: 0,
       },
 
