@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-12">
+  <div class="">
     Akk
     <div class="bg-gray-100 p-4">
       <input v-model="akkumulator.date" type="date" name="date" id="" />
@@ -119,10 +119,13 @@
       <div>{{ calculatedOdds }}</div>
     </div>
   </div>
+  <NewBet @bet="newBet" />
 </template>
 
 <script>
+import NewBet from "../components/NewBet.vue";
 export default {
+  components: { NewBet },
   computed: {
     calculatedOdds() {
       let calculatedOdds = 1;
@@ -131,6 +134,26 @@ export default {
     },
   },
   methods: {
+    newBet(value) {
+      console.log("her", value);
+      this.bets.push({
+        id: this.bets.length + 1,
+        sport: this.models.sports.find((sport) => sport.type == "Fodbold")._id,
+        league: this.models.leagues.find((league) =>
+          league.name.indexOf(value.league)
+        )._id,
+        selection: this.models.teams.find(
+          (team) => team.name == value.selection.split(" ")[0]
+        )._id,
+        bettype: this.models.bet_types.find((type) => type.type == "Winner")
+          ._id,
+        hometeam: this.models.teams.find((team) => team.name == value.hometeam)
+          ._id,
+        awayteam: this.models.teams.find((team) => team.name == value.awayteam)
+          ._id,
+        odds: value.odds,
+      });
+    },
     addBet() {
       this.bets.push({
         id: this.bets.length + 1,
@@ -145,7 +168,7 @@ export default {
     },
     fjern(id) {
       this.bets.splice(
-        this.bets.indexOf((bet) => bet.id == id),
+        this.bets.indexOf(this.bets.find((bet) => bet.id == id)),
         1
       );
       this.bets.forEach((bet, index) => {
