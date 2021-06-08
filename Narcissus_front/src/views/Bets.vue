@@ -157,6 +157,8 @@ export default {
       console.log({});
       fetch("http://localhost:5000/here", {
         method: "POST",
+        // headers: new Headers({'content-type': 'application/json'}),
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           date: this.akkumulator.date,
           tipper: this.akkumulator.tipper,

@@ -3,33 +3,33 @@ const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var BetSchema = new mongoose.Schema({
-  sport_id: {
+  sport: {
     type: String,
     required: true,
   },
-  league_id: {
+  league: {
     type: Schema.Types.ObjectId, ref: "League",
     required: true,
   },
-  selection_team_id: {
+  selection: {
     type: Schema.Types.ObjectId, ref: "Team",
     required: true,
   },
-  bet_type_id: {
+  bettype: {
     type: Schema.Types.ObjectId, ref: "Bet_Type",
     required: true,
   },
-  home_team_id: {
+  hometeam: {
     type: Schema.Types.ObjectId, ref: "Team",
     required: true,
   },
-  away_team_id: {
+  awayteam: {
     type: Schema.Types.ObjectId, ref: "Team",
     required: true,
   },
   live: {
     type: Boolean,
-    required: true,
+    // required: true,
   },
   odds: {
     type: Number,
@@ -37,7 +37,7 @@ var BetSchema = new mongoose.Schema({
   },
   bet_result: {
     type: String,
-    required: true,
+    // required: true,
     enum: ["W", "L", "R", "P"],
     default: "P",
   },

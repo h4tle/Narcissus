@@ -18,6 +18,7 @@
     <router-link to="/"><Bank class="w-10" /></router-link>
     <router-link to="/"><Calculator class="w-10" /></router-link>
     <router-link to="/"><Chart class="w-10" /></router-link>
+    <router-link to="/settings"><Settings class="w-10" /></router-link>
   </div>
 </template>
 

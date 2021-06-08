@@ -9,9 +9,6 @@ const Team = require("./models/team");
 const Sport = require("./models/sport");
 
 
-
-
-
 const mongoose = require("mongoose");
 var mongoDB =
   "mongodb+srv://mongo:changeme@cluster0.sgyvv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
@@ -22,9 +19,13 @@ mongoose
     const app = express();
     app.use(express.json());
     app.use(cors());
+
+
     app.post("/here", async (request, response) => {
       let akkumulator_data = request.body;
       const bets = akkumulator_data.bets;
+      console.log(request.body)
+
       
       let newBets = [];
       let aodds = 1;
@@ -35,8 +36,6 @@ mongoose
           return new Promise((resolve, reject) => {
             const currentbet = new Bet(item);
             aodds = aodds * item.odds
-            console.log(aodds)
-            console.log()
             currentbet.save().then((res) => {
               newBets.push(res._id);
               resolve();
@@ -47,9 +46,12 @@ mongoose
         akkumulator_data.bets = newBets;
         akkumulator_data.odds = aodds
         const newAkkumulator = new akkumulator(akkumulator_data)
+        console.log(akkumulator_data)
         newAkkumulator.save().then((res) => response.send(res._id))
       }).catch(err => console.log("fejl: " + err))
     });
+
+
 
     app.get("/leagues", async (request, response) => {
       const leagues = await League.find();
@@ -70,8 +72,3 @@ mongoose
   });
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
-
-//   bets
-//     .map((bet) => bet.odds)
-//     .reduce((accumulator, currentValue) => accumulator * currentValue) *
-//     akkumulator.stake
