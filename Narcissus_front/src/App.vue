@@ -1,6 +1,8 @@
 <template>
   <Sidebar />
-  <router-view> </router-view>
+  <div class="ml-12">
+    <router-view> </router-view>
+  </div>
 
   <div class="bg-gray-400 ml-12"></div>
 </template>
